@@ -58,3 +58,54 @@ function removeElement(parameter) {
 }
 
 removeElement("No");
+
+function localStorageFct(parameter) {
+
+  if(parameter === "No" && localStorage.length > 0) {
+    let getDataLocal = localStorage.getItem('List');
+    console.log(getDataLocal);
+    let parseObjt = JSON.parse(localStorage.getItem('List'));
+    let splitObj = getDataLocal.split("{}").length;
+    console.log("parseObjt", splitObj);
+    // document.getElementsByClassName('get_Title')[0].value = parseObjt.title;
+    // document.getElementsByClassName('get_author')[0].value = parseObjt.Author;
+
+    let getListAllBooks = document.getElementById('list_books');
+    let dynamicList = "";
+
+    for (var i = 0; i < splitObj; i++) {
+
+    let createBook = document.createElement('article');
+    createBook.classList.add('article' + i);
+    dynamicList =
+    `
+      <div>${collectionBooks[i].title}<br>${collectionBooks[i].Author}</div>
+      <button class="remove_btn" type="button" onClick="removeElement('article' + ${i})">Remove</button>
+      <hr>
+    `;
+
+    createBook.innerHTML = dynamicList;
+    getListAllBooks.appendChild(createBook);
+}
+
+  } else if(parameter === "Yes") {
+      let getFullTitle = document.getElementsByClassName('get_Title')[0].value;
+      let getFullAuthor = document.getElementsByClassName('get_author')[0].value;
+      let objectInputs = {title: getFullTitle, Author: getFullAuthor};
+      var strinfObject = JSON.stringify(objectInputs);
+      localStorage.setItem('List', strinfObject);
+      console.log(localStorage);
+  }
+}
+
+localStorageFct("No");
+
+// window.onload = function() {
+//   if (localStorage.getItem('List')) {
+//     // let parseObjt = JSON.parse(localStorage.getItem('List'));
+//     // console.log("parseObjt", parseObjt);
+
+//   } else {
+//     localStorage.clear();
+//   }
+// };

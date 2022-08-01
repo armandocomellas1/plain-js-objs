@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
   <title>Document</title>
 </head>
 <body>
@@ -14,14 +13,14 @@
     </header>
     <section id="list_books">
     </section>
-    <section>
+    <section id="list_books_id">
       <input class="get_Title" type="text" placeholder="Title" value="">
       <br>
       <br>
       <input class="get_author" type="text" placeholder="Author" value="">
       <br>
       <br>
-      <button type="button" class="add_book">Add</button>
+      <button type="button" class="add_book" onclick="localStorageFct('Yes')">Add</button>
     </section>
   </div>
   <script src="./javascript.js"></script>
