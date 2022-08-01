@@ -51,7 +51,7 @@ getFunctionAdd.addEventListener("click", function(){
 
 function removeElement(parameter) {
   if(parameter != "No") {
-    console.log("getNumberArticle", parameter);
+    // console.log("getNumberArticle", parameter);
     let transform = document.getElementsByClassName(parameter)[0];
     transform.remove();
   }
@@ -62,39 +62,59 @@ removeElement("No");
 function localStorageFct(parameter) {
 
   if(parameter === "No" && localStorage.length > 0) {
+    console.log("localStorage No", localStorage);
+
     let getDataLocal = localStorage.getItem('List');
-    console.log(getDataLocal);
     let parseObjt = JSON.parse(localStorage.getItem('List'));
     let splitObj = getDataLocal.split("{}").length;
-    console.log("parseObjt", splitObj);
     // document.getElementsByClassName('get_Title')[0].value = parseObjt.title;
     // document.getElementsByClassName('get_author')[0].value = parseObjt.Author;
 
     let getListAllBooks = document.getElementById('list_books');
     let dynamicList = "";
-
+    var reset = 3;
     for (var i = 0; i < splitObj; i++) {
 
-    let createBook = document.createElement('article');
-    createBook.classList.add('article' + i);
-    dynamicList =
-    `
-      <div>${collectionBooks[i].title}<br>${collectionBooks[i].Author}</div>
-      <button class="remove_btn" type="button" onClick="removeElement('article' + ${i})">Remove</button>
-      <hr>
-    `;
+      let createBook = document.createElement('article');
+      createBook.classList.add('article' + reset);
+      dynamicList =
+      `
+        <div>${parseObjt.title}<br>${parseObjt.Author}</div>
+        <button class="remove_btn" type="button" onClick="removeElement('article' + ${i})">Remove</button>
+        <hr>
+      `;
 
-    createBook.innerHTML = dynamicList;
-    getListAllBooks.appendChild(createBook);
-}
+      createBook.innerHTML = dynamicList;
+      getListAllBooks.appendChild(createBook);
+      reset++;
+    }
 
   } else if(parameter === "Yes") {
-      let getFullTitle = document.getElementsByClassName('get_Title')[0].value;
-      let getFullAuthor = document.getElementsByClassName('get_author')[0].value;
-      let objectInputs = {title: getFullTitle, Author: getFullAuthor};
-      var strinfObject = JSON.stringify(objectInputs);
-      localStorage.setItem('List', strinfObject);
-      console.log(localStorage);
+
+      let getDataLocal = localStorage.getItem('List');
+
+      if(getDataLocal != null) {
+        let parseObjt = JSON.parse(localStorage.getItem('List'));
+        let splitObj = getDataLocal.split("{}").length;
+        console.log("localStorage Yes", splitObj);
+
+        for (let i = 0; i < splitObj; i++) {
+          let getFullTitle = document.getElementsByClassName('get_Title')[0].value;
+          let getFullAuthor = document.getElementsByClassName('get_author')[0].value;
+
+          let objectInputs = {title: getFullTitle, Author: getFullAuthor};
+          var strinfObject = JSON.stringify(objectInputs);
+          console.log("strinfObject Yes", strinfObject);
+          localStorage.setItem('List', strinfObject);
+        }
+
+      } else {
+        let getFullTitle = document.getElementsByClassName('get_Title')[0].value;
+        let getFullAuthor = document.getElementsByClassName('get_author')[0].value;
+        let objectInputs = {title: getFullTitle, Author: getFullAuthor};
+        var strinfObject = JSON.stringify(objectInputs);
+        localStorage.setItem('List', strinfObject);
+      }
   }
 }
 
