@@ -49,12 +49,12 @@ getFunctionAdd.addEventListener("click", function(){
   getListAllBooks.appendChild(createBook);
 });
 
-function removeElement(parameter) {
-  if(parameter != "No") {
-    // console.log("getNumberArticle", parameter);
-    let transform = document.getElementsByClassName(parameter)[0];
-    transform.remove();
-  }
+
+// After to get a dialogue with Armando, my coding partner our conclusion is that everything is okay
+function removeElement(element) {
+  let getListAllBooks = document.getElementById('list_books');
+  let removeBook = document.getElementsByClassName(element)[0];
+  getListAllBooks.removeChild(removeBook);
 }
 
 removeElement("No");
