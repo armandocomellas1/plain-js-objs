@@ -51,10 +51,70 @@ getFunctionAdd.addEventListener("click", function(){
 
 function removeElement(parameter) {
   if(parameter != "No") {
-    console.log("getNumberArticle", parameter);
     let transform = document.getElementsByClassName(parameter)[0];
     transform.remove();
+    let removeLocalStore = JSON.parse(localStorage.getItem('List'));
+    for (let j = 0; j < removeLocalStore.length; j++) {
+      let removeData = removeLocalStore[j].Article;
+      let toRemove = removeLocalStore;
+      if(removeData === parameter) {
+        removeLocalStore = removeLocalStore.splice(j, 1);
+        localStorage.setItem('List', JSON.stringify(toRemove));
+      }
+
+    }
   }
 }
 
 removeElement("No");
+
+function localStorageFct(parameter) {
+  if(parameter === "No") {
+
+    let getDataLocalStorage = JSON.parse(localStorage.getItem('List'));
+    let parseObjt = getDataLocalStorage;
+
+    let getListAllBooks = document.getElementById('list_books');
+
+    if(parseObjt !== null) {
+      var lengthArray = parseObjt.length;
+    } else {
+      lengthArray = 0;
+    }
+
+    var reset = 3;
+    for (var i = 0; i < lengthArray; i++) {
+      let setData = parseObjt[i];
+
+      let createBook = document.createElement('article');
+      createBook.classList.add('article' + reset);
+      let dynamicList =
+      `
+        <div>${setData.title}<br>${setData.Author}</div>
+        <button class="remove_btn" type="button" onClick="removeElement('article' + ${reset})">Remove</button>
+        <hr>
+      `;
+      createBook.innerHTML = dynamicList;
+      getListAllBooks.appendChild(createBook);
+      reset++;
+    }
+
+  } else if(parameter === "Yes") {
+      let getFullTitle = document.getElementsByClassName('get_Title')[0].value;
+      let getFullAuthor = document.getElementsByClassName('get_author')[0].value;
+      let getArticlePos = document.getElementsByTagName('article');
+      let getLengthArticlePos = getArticlePos.length;
+      let joinTogether = "article" + getLengthArticlePos;
+      let objectInputs = {title: getFullTitle, Author: getFullAuthor, Article: joinTogether};
+      let getDataLocals = localStorage.getItem('List');
+      if(getDataLocals !== null) {
+        getDataLocals = JSON.parse(getDataLocals);
+        localStorage.setItem('List', JSON.stringify(getDataLocals.concat(objectInputs)));
+      } else {
+        var arrSetItem = [objectInputs]; //Create ARRAY
+        localStorage.setItem('List', JSON.stringify(arrSetItem));
+      }
+  }
+}
+
+localStorageFct("No");
