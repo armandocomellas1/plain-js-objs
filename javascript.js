@@ -59,7 +59,6 @@ function removeElement(parameter) {
       let toRemove = removeLocalStore;
       if(removeData === parameter) {
         removeLocalStore = removeLocalStore.splice(j, 1);
-        console.log("removeLocalStore", removeLocalStore);
         localStorage.setItem('List', JSON.stringify(toRemove));
       }
 
@@ -106,7 +105,6 @@ function localStorageFct(parameter) {
       let getArticlePos = document.getElementsByTagName('article');
       let getLengthArticlePos = getArticlePos.length;
       let joinTogether = "article" + getLengthArticlePos;
-      console.log("joinTogether", joinTogether);
       let objectInputs = {title: getFullTitle, Author: getFullAuthor, Article: joinTogether};
       let getDataLocals = localStorage.getItem('List');
       if(getDataLocals !== null) {
