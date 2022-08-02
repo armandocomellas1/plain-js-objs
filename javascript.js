@@ -75,9 +75,14 @@ function localStorageFct(parameter) {
 
     let getDataLocalStorage = JSON.parse(localStorage.getItem('List'));
     let parseObjt = getDataLocalStorage;
-
+    console.log(parseObjt);
     let getListAllBooks = document.getElementById('list_books');
-    let lengthArray = parseObjt.length;
+
+    if(parseObjt !== null) {
+      var lengthArray = parseObjt.length;
+    } else {
+      lengthArray = 0;
+    }
 
     var reset = 3;
     for (var i = 0; i < lengthArray; i++) {
